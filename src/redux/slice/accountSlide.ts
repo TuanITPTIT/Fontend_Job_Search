@@ -1,15 +1,37 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { callFetchAccount } from '@/config/api';
+//import { callFetchAccount } from '@/config/api';
 
-// First, create the thunk
+// // Gọi API backend để lấy data
+// export const fetchAccount = createAsyncThunk(
+//     'account/fetchAccount',
+//     async () => {
+//         const response = await callFetchAccount();
+//         return response.data;
+//     }
+// )
+
+// Fake DATA
 export const fetchAccount = createAsyncThunk(
     'account/fetchAccount',
     async () => {
-        const response = await callFetchAccount();
-        return response.data;
+        // Giả lập delay 1 giây giống như chờ server phản hồi
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return {
+            user: {
+                id: "TUAN-123",
+                email: "tuan@example.com",
+                name: "Tuan IT",
+                role: {
+                    id: "ROLE-ADMIN",
+                    name: "ADMIN",
+                    permissions: [
+                        { id: "1", name: "Full Access", apiPath: "/api/v1/*", method: "GET", module: "ALL" }
+                    ]
+                }
+            }
+        };
     }
 )
-
 interface IState {
     isAuthenticated: boolean;
     isLoading: boolean;
@@ -36,7 +58,7 @@ interface IState {
 
 const initialState: IState = {
     isAuthenticated: false,
-    isLoading: true,
+    isLoading: true,// mặc định đang load để check account
     isRefreshToken: false,
     errorRefreshToken: "",
     user: {
@@ -57,9 +79,8 @@ const initialState: IState = {
 export const accountSlide = createSlice({
     name: 'account',
     initialState,
-    // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-        // Use the PayloadAction type to declare the contents of `action.payload`
+        // sử dụng để khai báo nd action.payload
         setActiveMenu: (state, action) => {
             state.activeMenu = action.payload;
         },
@@ -95,7 +116,7 @@ export const accountSlide = createSlice({
 
     },
     extraReducers: (builder) => {
-        // Add reducers for additional action types here, and handle loading state as needed
+        //Thêm các reducer cho các loại hành động bổ sung tại đây và xử lý trạng thái tải khi cần thiết.
         builder.addCase(fetchAccount.pending, (state, action) => {
             if (action.payload) {
                 state.isAuthenticated = false;
