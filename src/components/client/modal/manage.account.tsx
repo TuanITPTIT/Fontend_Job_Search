@@ -3,12 +3,12 @@ import { isMobile } from "react-device-detect";
 import type { TabsProps } from 'antd';
 //import { IResume, ISubscribers } from "@/types/backend";
 import { useState, useEffect } from 'react';
-import { callCreateSubscriber, callFetchAllSkill, callFetchResumeByUser, callGetSubscriberSkills, callUpdateSubscriber } from "@/config/api";
+//import { callCreateSubscriber, callFetchAllSkill, callFetchResumeByUser, callGetSubscriberSkills, callUpdateSubscriber } from "@/config/api";
 import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { MonitorOutlined } from "@ant-design/icons";
-import { SKILLS_LIST } from "@/config/utils";
-import { useAppSelector } from "@/redux/hooks";
+//import { SKILLS_LIST } from "@/config/utils";
+//import { useAppSelector } from "@/redux/hooks";
 
 
 // Gia lap Interface cho Resume 

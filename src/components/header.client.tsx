@@ -7,14 +7,14 @@ import { isMobile } from 'react-device-detect';
 import { FaReact } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+//import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 //import { callLogout } from '@/config/api';
 //import { setLogoutAction } from '@/redux/slice/accountSlide';
-//import ManageAccount from './modal/manage.account';
+import ManageAccount from './modal/manage.account';
 
 const Header = (props: any) => {
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
+    //const dispatch = useAppDispatch();
 
     // const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
     // const user = useAppSelector(state => state.account.user);
@@ -31,7 +31,7 @@ const Header = (props: any) => {
     const [current, setCurrent] = useState('home');
     const location = useLocation();
 
-    //const [openMangeAccount, setOpenManageAccount] = useState<boolean>(false);
+    const [openMangeAccount, setOpenManageAccount] = useState<boolean>(false);
 
     useEffect(() => {
         setCurrent(location.pathname);
@@ -168,10 +168,10 @@ const Header = (props: any) => {
                     items={itemsMobiles}
                 />
             </Drawer>
-            {/* <ManageAccount
+            <ManageAccount
                 open={openMangeAccount}
                 onClose={setOpenManageAccount}
-            /> */}
+            />
         </>
     )
 };
