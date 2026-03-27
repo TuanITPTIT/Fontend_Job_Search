@@ -1,31 +1,24 @@
 import { useState, useEffect } from 'react';
 import { CodeOutlined, ContactsOutlined, FireOutlined, LogoutOutlined, MenuFoldOutlined, RiseOutlined, TwitterOutlined } from '@ant-design/icons';
-import { Avatar, Drawer, Dropdown, MenuProps, Space, message } from 'antd';
+import { Avatar, Drawer, Dropdown, type MenuProps, Space, message } from 'antd';
 import { Menu, ConfigProvider } from 'antd';
 import styles from '@/styles/client.module.scss';
 import { isMobile } from 'react-device-detect';
 import { FaReact } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-//import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 //import { callLogout } from '@/config/api';
-//import { setLogoutAction } from '@/redux/slice/accountSlide';
-import ManageAccount from './modal/manage.account';
+import { setLogoutAction } from '@/redux/slice/accountSlide';
+import ManageAccount from '@/components/client/modal/manage.account';
 
 const Header = (props: any) => {
     const navigate = useNavigate();
-    //const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
 
-    // const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
-    // const user = useAppSelector(state => state.account.user);
-    // Fake data
-    const isAuthenticated = true; // Đổi thành false nếu muốn xem giao diện nút "Đăng Nhập"
-    const user = {
-        name: "Tuan",
-        role: {
-            permissions: [{ id: 1 }] // Để hiện nút "Trang Quản Trị"
-        }
-    };
+    const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
+    const user = useAppSelector(state => state.account.user);
+    
     const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
 
     const [current, setCurrent] = useState('home');
@@ -70,9 +63,9 @@ const Header = (props: any) => {
     //         navigate('/')
     //     }
     // }
-    // Fake data 
+    // Fake logout
     const handleLogout = ()=> {
-        console.log("Thực hiện đăng xuất fake");
+        dispatch(setLogoutAction({}));
         message.success("Đăng xuất thành công");
         navigate('/');
     }
